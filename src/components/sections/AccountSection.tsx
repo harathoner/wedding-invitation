@@ -36,37 +36,73 @@ const AccountSection = ({ bgColor = 'white' }: AccountSectionProps) => {
     }
   };
 
-  const copyToClipboard = (text: string, person: AccountPerson) => {
-    navigator.clipboard.writeText(text).then(
-      () => {
-        setCopyStatus({ ...copyStatus, [person]: true });
-        setTimeout(() => {
-          setCopyStatus({ ...copyStatus, [person]: false });
-        }, 2000);
-      },
-      (err) => {
-        console.error('계좌번호 복사 실패:', err);
+  /**
+   * [핵심 기능] 안드로이드/카카오톡 인앱 브라우저 호환 복사 함수
+   * navigator.clipboard가 실패하면 execCommand로 재시도합니다.
+   */
+  const secureCopy = async (text: string): Promise<boolean> => {
+    try {
+      // 1. 최신 브라우저 방식 시도
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (err) {
+      // 2. 실패 시 (안드로이드 인앱 등) 레거시 방식 시도
+      try {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        
+        // 화면 밖으로 숨김 처리
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-9999px';
+        textArea.style.top = '0';
+        
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
+        const success = document.execCommand('copy');
+        document.body.removeChild(textArea);
+        
+        return success;
+      } catch (fallbackErr) {
+        console.error('복사 실패:', fallbackErr);
+        return false;
       }
-    );
+    }
+  };
+
+  // 계좌번호 복사 함수 (수정됨)
+  const copyToClipboard = async (text: string, person: AccountPerson) => {
+    const success = await secureCopy(text);
+    
+    if (success) {
+      setCopyStatus({ ...copyStatus, [person]: true });
+      setTimeout(() => {
+        setCopyStatus({ ...copyStatus, [person]: false });
+      }, 2000);
+    } else {
+      alert('복사에 실패했습니다. 계좌번호를 직접 복사해주세요.');
+    }
   };
   
-  // URL 복사 함수
-  const copyWebsiteUrl = () => {
+  // URL 복사 함수 (수정됨)
+  const copyWebsiteUrl = async () => {
     const url = window.location.href;
-    navigator.clipboard.writeText(url).then(
-      () => {
-        setUrlCopied(true);
-        setTimeout(() => {
-          setUrlCopied(false);
-        }, 2000);
-      },
-      (err) => {
-        console.error('URL 복사 실패:', err);
-      }
-    );
+    const success = await secureCopy(url);
+
+    if (success) {
+      setUrlCopied(true);
+      // 안드로이드에서는 토스트 메시지 대신 alert가 확실할 때가 있음 (선택사항)
+      alert('청첩장 주소가 복사되었습니다. 🌸'); 
+      setTimeout(() => {
+        setUrlCopied(false);
+      }, 2000);
+    } else {
+      alert('URL 복사에 실패했습니다. 주소창을 이용해주세요.');
+    }
   };
   
-  // 웹 공유 API를 사용한 공유 함수
+  // 웹 공유 API를 사용한 공유 함수 (수정됨)
   const shareWebsite = async () => {
     const shareData = {
       title: weddingConfig.meta.title,
@@ -74,17 +110,20 @@ const AccountSection = ({ bgColor = 'white' }: AccountSectionProps) => {
       url: window.location.href,
     };
     
-    try {
-      if (navigator.share) {
+    // 1. 공유 API 지원 여부 확인
+    if (navigator.share) {
+      try {
         await navigator.share(shareData);
-      } else {
-        // 공유 API를 지원하지 않는 경우 URL 복사로 대체
-        copyWebsiteUrl();
-        alert('이 브라우저는 공유 기능을 지원하지 않습니다. URL이 복사되었습니다.');
+        return; // 공유 성공 시 종료
+      } catch (error) {
+        // 사용자가 창을 닫거나 취소한 경우(AbortError)는 무시
+        if ((error as Error).name === 'AbortError') return;
+        // 그 외 에러 발생 시 아래 복사 로직으로 진입
       }
-    } catch (error) {
-      console.error('공유 실패:', error);
     }
+
+    // 2. 공유 API가 없거나 실패한 경우 -> URL 복사 실행
+    await copyWebsiteUrl();
   };
 
   // 각 인물에 해당하는 이름 가져오기
@@ -197,6 +236,8 @@ const AccountSection = ({ bgColor = 'white' }: AccountSectionProps) => {
     </AccountSectionContainer>
   );
 };
+
+// --- 스타일 정의 (보내주신 원본 유지) ---
 
 const AccountSectionContainer = styled.section<{ $bgColor: 'white' | 'beige' }>`
   padding: 4rem 1.5rem;
@@ -461,4 +502,4 @@ const ShareButton = styled.button<{ $isShare?: boolean }>`
   }
 `;
 
-export default AccountSection; 
+export default AccountSection;

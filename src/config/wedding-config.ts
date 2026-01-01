@@ -14,8 +14,8 @@ export const weddingConfig = {
   // 메타 정보
   meta: {
     title: "천대웅 ❤️ 하근영의 결혼식에 초대합니다",
-    description: "결혼식 초대장",
-    ogImage: "/images/main.png",
+    description: "2026-03-14 토요일 오전 11시 30분",
+    ogImage: "/images/main.jpg",
     noIndex: true,
     _jwk_watermark_id: uniqueIdentifier,
   },
@@ -64,23 +64,9 @@ export const weddingConfig = {
     },
     parking: "을지트윈타워 주차장 이용 가능 (2시간 무료)",
     // 신랑측 배차 안내
-    groomShuttle: {
-      location: "",
-      departureTime: "",
-      contact: {
-        name: "",
-        tel: ""
-      }
-    },
+    groomShuttle: '',
     // 신부측 배차 안내
-    brideShuttle: {
-      location: "",
-      departureTime: "",
-      contact: {
-        name: "",
-        tel: ""
-      }
-    } 
+    brideShuttle: ''
   },
 
   // 갤러리
@@ -88,15 +74,15 @@ export const weddingConfig = {
     layout: "grid" as GalleryLayout, // "scroll" 또는 "grid" 선택
     position: "middle" as GalleryPosition, // "middle" (현재 위치) 또는 "bottom" (맨 하단) 선택
     images: [
-      "/images/gallery/image1.JPG",
-      "/images/gallery/image2.JPG",
-      "/images/gallery/image3.JPG",
-      "/images/gallery/image4.JPG",
-      "/images/gallery/image5.JPG",
-      "/images/gallery/image6.JPG",
-      "/images/gallery/image7.JPG",
-      "/images/gallery/image8.JPG",
-      "/images/gallery/image9.JPG",
+      "/images/gallery/image01.JPG",
+      "/images/gallery/image02.JPG",
+      "/images/gallery/image03.JPG",
+      "/images/gallery/image04.JPG",
+      "/images/gallery/image05.JPG",
+      "/images/gallery/image06.JPG",
+      "/images/gallery/image07.JPG",
+      "/images/gallery/image08.JPG",
+      "/images/gallery/image09.JPG",
       "/images/gallery/image10.JPG",
       "/images/gallery/image11.JPG",
       "/images/gallery/image12.JPG",
