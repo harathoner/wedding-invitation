@@ -39,6 +39,7 @@ export interface Venue {
   transportation: {
     subway: string;
     bus: string;
+    shuttle: string;
   };
   parking: string;
   groomShuttle?: ShuttleInfo;
