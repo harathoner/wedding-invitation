@@ -63,9 +63,9 @@ export const weddingConfig = {
       shuttle: "충무로역 8번출구, 을지로4가역 9번출구 10~15분 간격으로 운행",
     },
     parking: "을지트윈타워 주차장 이용 가능 (2시간 무료)",
-    // 신랑측 배차 안내
+    // 신랑측 배차 안내 - venueSection에서는 그냥 날려버림
     groomShuttle: '',
-    // 신부측 배차 안내
+    // 신부측 배차 안내 - venueSection에서는 그냥 날려버림
     brideShuttle: ''
   },
 
