@@ -98,6 +98,7 @@ const AccountSection = ({ bgColor = 'white' }: AccountSectionProps) => {
     const imageUrl = weddingConfig.meta.ogImage.startsWith('http') 
         ? weddingConfig.meta.ogImage 
         : `${origin}${weddingConfig.meta.ogImage}`;
+    const realUrl = 'https://wedding-invitation-hsep.vercel.app';
 
     // 3. 메시지 보내기 (Feed 타입)
     window.Kakao.Share.sendDefault({
@@ -117,16 +118,16 @@ const AccountSection = ({ bgColor = 'white' }: AccountSectionProps) => {
         {
           title: '자세히 보기',
           link: {
-            mobileWebUrl: 'https://wedding-invitation-hsep.vercel.app',
-            webUrl: 'https://wedding-invitation-hsep.vercel.app',
+            mobileWebUrl: realUrl,
+            webUrl: realUrl,
           },
         },
         {
           title: '위치 보기',
           link: {
             // 위치 보기 클릭 시 지도 섹션(#venue)으로 이동하도록 설정
-            mobileWebUrl: 'https://wedding-invitation-hsep.vercel.app',
-            webUrl: 'https://wedding-invitation-hsep.vercel.app',
+            mobileWebUrl: `${realUrl}`,
+            webUrl: `${realUrl}`,
           },
         },
       ],
