@@ -117,8 +117,8 @@ const AccountSection = ({ bgColor = 'white' }: AccountSectionProps) => {
         {
           title: '자세히 보기',
           link: {
-            mobileWebUrl: window.location.href,
-            webUrl: window.location.href,
+            mobileWebUrl: 'https://wedding-invitation-hsep.vercel.app',
+            webUrl: 'https://wedding-invitation-hsep.vercel.app',
           },
         },
         {
