@@ -81,45 +81,56 @@ const AccountSection = ({ bgColor = 'white' }: AccountSectionProps) => {
   };
   
   // ▼▼▼ [수정됨] 카카오톡 전용 공유 함수 (버튼 2개 버전) ▼▼▼
-const shareToKakao = () => {
-    // 1. 초기화 확인
-    if (!window.Kakao.isInitialized()) {
-      window.Kakao.init('57ee06c88eda46cfb7c378eaa01699de'); // API 키 직접 입력
+  const shareToKakao = () => {
+    // 1. 카카오 SDK 로드 체크
+    if (!window.Kakao || !window.Kakao.isInitialized()) {
+        if (window.Kakao) {
+            window.Kakao.init(kakaoApiKey);
+        } else {
+            alert('카카오톡 공유 기능을 불러오는 중입니다. 잠시 후 다시 시도해주세요.');
+            return;
+        }
     }
 
-    // 2. [중요] 모든 변수 제거하고 하드코딩으로 전송
+    // 2. 이미지 절대 경로 변환 (카톡은 https:// 로 시작하는 전체 주소가 필요함)
+    const origin = typeof window !== 'undefined' ? window.location.origin : '';
+    // config에 설정된 이미지가 http로 시작하지 않으면 앞에 도메인을 붙여줌
+    const imageUrl = weddingConfig.meta.ogImage.startsWith('http') 
+        ? weddingConfig.meta.ogImage 
+        : `${origin}${weddingConfig.meta.ogImage}`;
+    const fixedUrl = 'https://wedding-invitation-hsep.vercel.app';
+
+    // 3. 메시지 보내기 (Feed 타입)
     window.Kakao.Share.sendDefault({
       objectType: 'feed',
       content: {
-        title: '테스트 타이틀',
-        description: '테스트 설명입니다',
-        // [중요] 이미지가 원인인지 확인하기 위해 '카카오 샘플 이미지' 사용
-        imageUrl: 'https://k.kakaocdn.net/dn/bW3qWZ/btqDsvI9pC8/P31xO9aF2A7oHk7FzB6kz1/img_640x640.jpg',
+        title: `${weddingConfig.invitation.groom.name} ♥ ${weddingConfig.invitation.bride.name} 결혼합니다`,
+        // 💡 여기에 실제 예식 날짜와 시간을 적어주세요 (사진 1번의 설명 부분)
+        description: '2026-03-14 오전 11시 30분', 
+        imageUrl: imageUrl,
         link: {
-          mobileWebUrl: 'https://wedding-invitation-hsep.vercel.app',
-          webUrl: 'https://wedding-invitation-hsep.vercel.app',
+          mobileWebUrl: fixedUrl,
+          webUrl: fixedUrl,
         },
       },
+      // 💡 [핵심] 버튼 2개 설정
       buttons: [
         {
-          title: '테스트 버튼 1',
+          title: '자세히 보기',
           link: {
-            mobileWebUrl: 'https://wedding-invitation-hsep.vercel.app',
-            webUrl: 'https://wedding-invitation-hsep.vercel.app',
+            mobileWebUrl: fixedUrl,
+            webUrl: fixedUrl,
           },
         },
         {
-          title: '테스트 버튼 2',
+          title: '위치 보기',
           link: {
-            mobileWebUrl: 'https://wedding-invitation-hsep.vercel.app',
-            webUrl: 'https://wedding-invitation-hsep.vercel.app',
+            // 위치 보기 클릭 시 지도 섹션(#venue)으로 이동하도록 설정
+            mobileWebUrl: `${fixedUrl}`,
+            webUrl: `${fixedUrl}`,
           },
         },
       ],
-      // [중요] 에러가 나면 왜 안되는지 팝업으로 알려줌
-      fail: function(err :any) {
-        alert('카카오 전송 에러: ' + JSON.stringify(err));
-      },
     });
   };
 
