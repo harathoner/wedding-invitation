@@ -81,53 +81,44 @@ const AccountSection = ({ bgColor = 'white' }: AccountSectionProps) => {
   };
   
   // ▼▼▼ [수정됨] 카카오톡 전용 공유 함수 (버튼 2개 버전) ▼▼▼
-  const shareToKakao = () => {
-    // 1. 카카오 SDK 로드 체크
-    if (!window.Kakao || !window.Kakao.isInitialized()) {
-        if (window.Kakao) {
-            window.Kakao.init(kakaoApiKey);
-        } else {
-            alert('카카오톡 공유 기능을 불러오는 중입니다. 잠시 후 다시 시도해주세요.');
-            return;
-        }
+ const shareToKakao = () => {
+    // 1. 카카오 SDK 초기화
+    if (typeof window !== 'undefined' && window.Kakao) {
+       if (!window.Kakao.isInitialized()) {
+          window.Kakao.init('57ee06c88eda46cfb7c378eaa01699de'); // 사용하시는 JavaScript 키
+       }
     }
 
-    // 2. 이미지 절대 경로 변환 (카톡은 https:// 로 시작하는 전체 주소가 필요함)
+    // 2. 주소 및 이미지 설정
+    // 배포된 실제 주소를 고정으로 박아두는 것이 가장 안전합니다.
+    const fixedUrl = 'https://wedding-invitation-hsep.vercel.app';
+    
+    // 이미지는 기존 로직 그대로 사용하되, 만약 안 뜨면 https:// 전체 경로를 직접 넣으세요.
     const origin = typeof window !== 'undefined' ? window.location.origin : '';
-    // config에 설정된 이미지가 http로 시작하지 않으면 앞에 도메인을 붙여줌
     const imageUrl = weddingConfig.meta.ogImage.startsWith('http') 
         ? weddingConfig.meta.ogImage 
         : `${origin}${weddingConfig.meta.ogImage}`;
-    const fixedUrl = 'https://wedding-invitation-hsep.vercel.app';
 
-    // 3. 메시지 보내기 (Feed 타입)
+    // 3. 카카오톡 공유 전송 (버튼 1개)
     window.Kakao.Share.sendDefault({
       objectType: 'feed',
       content: {
         title: `대웅 ♥ 근영 결혼식에 초대합니다`,
-        // 💡 여기에 실제 예식 날짜와 시간을 적어주세요 (사진 1번의 설명 부분)
-        description: '2026-03-14 오전 11시 30분', 
+        description: '2026-03-14 토요일 오전 11시 30분', 
         imageUrl: imageUrl,
         link: {
+          // [중요] 카카오 개발자 센터에 등록된 도메인과 100% 일치해야 함
           mobileWebUrl: fixedUrl,
           webUrl: fixedUrl,
         },
       },
-      // 💡 [핵심] 버튼 2개 설정
+      // ▼▼▼ 버튼을 하나만 남겼습니다 ▼▼▼
       buttons: [
         {
-          title: '자세히 보기',
+          title: '모바일 청첩장 보기', // 버튼 이름
           link: {
-            mobileWebUrl: 'https://wedding-invitation-hsep.vercel.app',
-            webUrl: 'https://wedding-invitation-hsep.vercel.app',
-          },
-        },
-        {
-          title: '위치 보기',
-          link: {
-            // 위치 보기 클릭 시 지도 섹션(#venue)으로 이동하도록 설정
-            mobileWebUrl: 'https://wedding-invitation-hsep.vercel.app',
-            webUrl: 'https://wedding-invitation-hsep.vercel.app',
+            mobileWebUrl: fixedUrl,
+            webUrl: fixedUrl,
           },
         },
       ],
