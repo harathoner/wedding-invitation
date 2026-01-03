@@ -98,7 +98,7 @@ const AccountSection = ({ bgColor = 'white' }: AccountSectionProps) => {
     const imageUrl = weddingConfig.meta.ogImage.startsWith('http') 
         ? weddingConfig.meta.ogImage 
         : `${origin}${weddingConfig.meta.ogImage}`;
-    const realUrl = 'https://wedding-invitation-hsep.vercel.app';
+    const fixedUrl = 'https://wedding-invitation-hsep.vercel.app';
 
     // 3. 메시지 보내기 (Feed 타입)
     window.Kakao.Share.sendDefault({
@@ -106,11 +106,11 @@ const AccountSection = ({ bgColor = 'white' }: AccountSectionProps) => {
       content: {
         title: `${weddingConfig.invitation.groom.name} ♥ ${weddingConfig.invitation.bride.name} 결혼합니다`,
         // 💡 여기에 실제 예식 날짜와 시간을 적어주세요 (사진 1번의 설명 부분)
-        description: '2026년 3월 14일 토요일 오전 11시 30분', 
+        description: '2026-03-14 오전 11시 30분', 
         imageUrl: imageUrl,
         link: {
-          mobileWebUrl: window.location.href,
-          webUrl: window.location.href,
+          mobileWebUrl: fixedUrl,
+          webUrl: fixedUrl,
         },
       },
       // 💡 [핵심] 버튼 2개 설정
@@ -118,16 +118,16 @@ const AccountSection = ({ bgColor = 'white' }: AccountSectionProps) => {
         {
           title: '자세히 보기',
           link: {
-            mobileWebUrl: realUrl,
-            webUrl: realUrl,
+            mobileWebUrl: fixedUrl,
+            webUrl: fixedUrl,
           },
         },
         {
           title: '위치 보기',
           link: {
             // 위치 보기 클릭 시 지도 섹션(#venue)으로 이동하도록 설정
-            mobileWebUrl: `${realUrl}`,
-            webUrl: `${realUrl}`,
+            mobileWebUrl: `${fixedUrl}`,
+            webUrl: `${fixedUrl}`,
           },
         },
       ],
