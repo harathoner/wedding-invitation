@@ -104,7 +104,7 @@ const AccountSection = ({ bgColor = 'white' }: AccountSectionProps) => {
     window.Kakao.Share.sendDefault({
       objectType: 'feed',
       content: {
-        title: `${weddingConfig.invitation.groom.name} ♥ ${weddingConfig.invitation.bride.name} 결혼합니다`,
+        title: `대웅 ♥ 근영 결혼식에 초대합니다`,
         // 💡 여기에 실제 예식 날짜와 시간을 적어주세요 (사진 1번의 설명 부분)
         description: '2026-03-14 오전 11시 30분', 
         imageUrl: imageUrl,
