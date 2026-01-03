@@ -126,8 +126,8 @@ const AccountSection = ({ bgColor = 'white' }: AccountSectionProps) => {
           title: '위치 보기',
           link: {
             // 위치 보기 클릭 시 지도 섹션(#venue)으로 이동하도록 설정
-            mobileWebUrl: `${fixedUrl}`,
-            webUrl: `${fixedUrl}`,
+            mobileWebUrl: fixedUrl,
+            webUrl: fixedUrl,
           },
         },
       ],
