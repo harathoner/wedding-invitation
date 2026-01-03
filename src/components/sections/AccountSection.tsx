@@ -82,48 +82,18 @@ const AccountSection = ({ bgColor = 'white' }: AccountSectionProps) => {
   
   // ▼▼▼ [수정됨] 카카오톡 전용 공유 함수 (버튼 2개 버전) ▼▼▼
  const shareToKakao = () => {
-    // 1. 카카오 SDK 초기화
-    if (typeof window !== 'undefined' && window.Kakao) {
-       if (!window.Kakao.isInitialized()) {
-          window.Kakao.init('57ee06c88eda46cfb7c378eaa01699de'); // 사용하시는 JavaScript 키
-       }
-    }
-
-    // 2. 주소 및 이미지 설정
-    // 배포된 실제 주소를 고정으로 박아두는 것이 가장 안전합니다.
-    const fixedUrl = 'https://wedding-invitation-hsep.vercel.app';
-    
-    // 이미지는 기존 로직 그대로 사용하되, 만약 안 뜨면 https:// 전체 경로를 직접 넣으세요.
-    const origin = typeof window !== 'undefined' ? window.location.origin : '';
-    const imageUrl = weddingConfig.meta.ogImage.startsWith('http') 
-        ? weddingConfig.meta.ogImage 
-        : `${origin}${weddingConfig.meta.ogImage}`;
-
-    // 3. 카카오톡 공유 전송 (버튼 1개)
-    window.Kakao.Share.sendDefault({
-      objectType: 'feed',
-      content: {
-        title: `대웅 ♥ 근영 결혼식에 초대합니다`,
-        description: '2026-03-14 토요일 오전 11시 30분', 
-        imageUrl: imageUrl,
-        link: {
-          // [중요] 카카오 개발자 센터에 등록된 도메인과 100% 일치해야 함
-          mobileWebUrl: fixedUrl,
-          webUrl: fixedUrl,
-        },
+  // layout.tsx에서 이미 초기화했으므로 바로 사용 가능
+  if (window.Kakao) {
+    window.Kakao.Share.sendCustom({
+      templateId: 127493, // 👈 방금 만든 템플릿 ID 숫자를 여기에 넣으세요
+      templateArgs: {
+        // (선택사항) 템플릿 내용을 동적으로 바꾸고 싶을 때 사용
+        // title: '대웅 ♥ 근영 결혼합니다', 
+        // description: '3월 14일 토요일'
       },
-      // ▼▼▼ 버튼을 하나만 남겼습니다 ▼▼▼
-      buttons: [
-        {
-          title: '모바일 청첩장 보기', // 버튼 이름
-          link: {
-            mobileWebUrl: fixedUrl,
-            webUrl: fixedUrl,
-          },
-        },
-      ],
     });
-  };
+  }
+};
 
   // ... (이름 가져오기 및 렌더링 함수는 기존 유지) ...
   const getPersonName = (person: AccountPerson): string => {
