@@ -108,6 +108,10 @@ const AccountSection = ({ bgColor = 'white' }: AccountSectionProps) => {
         // 💡 여기에 실제 예식 날짜와 시간을 적어주세요 (사진 1번의 설명 부분)
         description: '2026-03-14 오전 11시 30분', 
         imageUrl: imageUrl,
+        link: {
+          mobileWebUrl: fixedUrl,
+          webUrl: fixedUrl,
+        },
       },
       // 💡 [핵심] 버튼 2개 설정
       buttons: [
