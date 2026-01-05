@@ -15,7 +15,7 @@ export const weddingConfig = {
   meta: {
     title: "천대웅 ❤️ 하근영의 결혼식에 초대합니다",
     description: "2026-03-14 토요일 오전 11시 30분",
-    ogImage: "/images/main.jpg",
+    ogImage: "/images/thumbnail.png",
     noIndex: true,
     _jwk_watermark_id: uniqueIdentifier,
   },
