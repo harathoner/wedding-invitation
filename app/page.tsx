@@ -66,12 +66,13 @@ export default function Home() {
     <main>
       <MainSection />
       <InvitationSection bgColor={sectionColorMap['invitation']} />
+      <GallerySection bgColor={sectionColorMap['gallery-middle']} /> {/* 조건 제거 */}
       <DateSection bgColor={sectionColorMap['date']} />
       <VenueSection bgColor={sectionColorMap['venue']} />
-      {galleryPosition === 'middle' && <GallerySection bgColor={sectionColorMap['gallery-middle']} />}
+      {/* {galleryPosition === 'middle' && <GallerySection bgColor={sectionColorMap['gallery-middle']} />} */}
       {showRsvp && <RsvpSection bgColor={sectionColorMap['rsvp']} />}
       <AccountSection bgColor={sectionColorMap['account']} />
-      {galleryPosition === 'bottom' && <GallerySection bgColor={sectionColorMap['gallery-bottom']} />}
+      {/* {galleryPosition === 'bottom' && <GallerySection bgColor={sectionColorMap['gallery-bottom']} />} */}
       <Footer />
     </main>
   );

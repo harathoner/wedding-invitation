@@ -15,7 +15,7 @@ export const weddingConfig = {
   meta: {
     title: "천대웅 ❤️ 하근영의 결혼식에 초대합니다",
     description: "2026-03-14 토요일 오전 11시 30분",
-    ogImage: "/images/thumbnail.png",
+    ogImage: "/images/main.jpg",
     noIndex: true,
     _jwk_watermark_id: uniqueIdentifier,
   },
@@ -91,7 +91,7 @@ export const weddingConfig = {
 
   // 초대의 말씀
   invitation: {
-    message: "한 줄기 별빛이 되어 만난 인연\n평생을 함께 걸어가려 합니다.\n\n소중한 분들의 축복 속에\n저희 두 사람이 첫 걸음을 내딛습니다.\n\n귀한 시간 내어 함께해 주신다면\n그 어떤 축복보다 값진 선물이 될 것입니다.",
+    message: "두 사람이 평생을 함께합니다.\n서로를 아끼며 삶을 채워가겠습니다.\n축하에 감사드리며 행복하게 살겠습니다.",
     groom: {
       name: "천대웅",
       label: "아들",

@@ -16,7 +16,7 @@ const Footer = () => {
   return (
     <FooterContainer>
       {/* WeddingInvitation-Footer-NonCommercial DO NOT CHANGE*/}
-      <FooterContent>
+      {/* <FooterContent>
         <Copyright>© {currentYear} Jawon Koo</Copyright>
         <Credits>Made with ❤️</Credits>
         <GithubLink
@@ -29,7 +29,7 @@ const Footer = () => {
         <HiddenAttribution data-jwk-id={watermarkId}>
           NonCommercial
         </HiddenAttribution>
-      </FooterContent>
+      </FooterContent> */}
     </FooterContainer>
   );
 };
