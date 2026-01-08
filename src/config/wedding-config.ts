@@ -13,7 +13,7 @@ interface GalleryConfig {
 export const weddingConfig = {
   // 메타 정보
   meta: {
-    title: "천대웅 ❤️ 하근영의 결혼식에 초대합니다",
+    title: "대웅❤️근영의 결혼식에 초대합니다",
     description: "2026-03-14 토요일 오전 11시 30분",
     ogImage: "/images/main.jpg",
     noIndex: true,
@@ -109,14 +109,14 @@ export const weddingConfig = {
   // 계좌번호
   account: {
     groom: {
-      bank: "은행명",
-      number: "123-456-789012",
-      holder: "신랑이름",
+      bank: "케이뱅크",
+      number: "100-144-524047",
+      holder: "천대웅",
     },
     bride: {
-      bank: "은행명",
-      number: "987-654-321098",
-      holder: "신부이름",
+      bank: "하나은행",
+      number: "144-891593-32007",
+      holder: "하근영",
     },
     groomFather: {
       bank: "은행명",
