@@ -366,7 +366,16 @@ const GallerySection = ({ bgColor = 'white' }: GallerySectionProps) => {
                 fill
                 sizes="90vw"
                 quality={90}
-                style={{ objectFit: 'contain', background: 'transparent' }}
+                style={{ 
+                  objectFit: 'contain', 
+                  background: 'transparent',
+                  maxWidth: '100%',
+                  maxHeight: '100%',
+                  touchAction: 'none',          // 손가락 확대 방지
+                  pointerEvents: 'auto',        // 클릭은 되어야 닫기 등이 가능
+                  userSelect: 'none',           // 텍스트/이미지 선택 방지
+                  WebkitTouchCallout: 'none',    // 아이폰 꾹 눌러서 저장창 뜨는 것 방지
+                 }}
                 draggable={false}
                 onContextMenu={e => e.preventDefault()}
                 onLoad={handleExpandedImageLoad}
